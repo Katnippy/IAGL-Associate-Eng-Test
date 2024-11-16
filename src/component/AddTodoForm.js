@@ -1,15 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+
+import { postTodo } from '../actions';
 
 const AddTodoForm = () => {
+  const dispatch = useDispatch();
   const [newTodo, setNewTodo] = useState('');
 
   function addTodo(event) {
     event.preventDefault();
 
-    console.log('This will add a todo soon!');
+    dispatch(postTodo({ task: newTodo }));
+    setNewTodo('');
   }
 
   function handleTodoChange(event) {
@@ -20,7 +24,6 @@ const AddTodoForm = () => {
 
   return (
     <>
-      <h1>{newTodo}</h1>
       <form onSubmit={addTodo}>
         <label htmlFor="todo-input">Todo: </label>
         <input id="todo-input" value={newTodo} onChange={handleTodoChange} 
