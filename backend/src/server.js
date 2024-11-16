@@ -8,24 +8,16 @@ const server = () => {
   server.use(express.json());
   server.use(cors());
 
-  server.get('/api/todo', async (req, res) => {
+  const endpoint = '/api/todo';
+
+  server.get(endpoint, async (res) => {
     res.json(await todoService.getTodos());
   });
 
-  /**
-  POST /api/todo
-  {
-   "task": "Some API"
-  }
-
-   {
-    "todos": [
-      {
-        "task": "Some API"
-      }
-    ]
-   }
-  **/
+  server.post(endpoint, async (req, res) => {
+    const todo = req.body;
+    res.json(await todoService.postTodo(todo));
+  });
 
   return server;
 };
