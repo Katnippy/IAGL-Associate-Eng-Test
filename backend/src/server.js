@@ -10,13 +10,17 @@ const server = () => {
 
   const endpoint = '/api/todo';
 
-  server.get(endpoint, async (res) => {
+  server.get(endpoint, async (req, res) => {
     res.json(await todoService.getTodos());
   });
 
   server.post(endpoint, async (req, res) => {
     const todo = req.body;
-    res.json(await todoService.postTodo(todo));
+    try {
+      res.json(await todoService.postTodo(todo));
+    } catch (e) {
+      return res.status(400).json({ error: e.message })
+    }
   });
 
   return server;

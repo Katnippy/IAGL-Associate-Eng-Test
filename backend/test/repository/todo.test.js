@@ -28,9 +28,9 @@ describe('TODO repository', () => {
 
     // Act
     await repository.postTodo(todoToPost);
-    const actual = await repository.getTodos()
+    const actual = await repository.getTodos();
 
     // Assert
     expect(actual).toEqual(expected);
-  })
+  });
 });
